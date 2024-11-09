@@ -1,0 +1,6 @@
+﻿services:
+  airfryer:
+    image: airfryer
+    build:
+      context: .
+      dockerfile: Dockerfile
