@@ -1,0 +1,18 @@
+﻿@model IEnumerable<RecipeViewModel>
+
+@{
+    ViewData["Title"] = "Recipes";
+}
+
+<div>
+    <h2>Recipes</h2>
+</div>
+
+<div>
+    
+    @if (!Model.Any())
+    {
+        <p>No recipes. Create one.</p>
+    }
+    
+</div>
