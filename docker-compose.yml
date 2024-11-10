@@ -7,12 +7,23 @@
     ports:
       - "8080:8080"
   db:
-    image: postgres
+    image: postgres:latest
     restart: always
     environment:
+      POSTGRES_USER: airfryer
+      POSTGRES_DB: airfryer
       POSTGRES_PASSWORD: localDevPgPassword1234
     volumes:
       - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres-network
 
 volumes:
   pgdata:
+    driver: local
+    
+networks:
+  postgres-network:
+    driver: bridge

@@ -1,3 +1,6 @@
+using airfryer.Db;
+using Microsoft.EntityFrameworkCore;
+
 namespace airfryer;
 
 public class Program
@@ -8,6 +11,9 @@ public class Program
 
         // Add services to the container.
         builder.Services.AddControllersWithViews();
+
+        builder.Services.AddDbContext<AirfryerContext>(opt =>
+            opt.UseNpgsql(builder.Configuration.GetConnectionString("AirfryerContext")));
 
         var app = builder.Build();
 
