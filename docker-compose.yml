@@ -6,7 +6,7 @@
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
-  db:
+  postgres-db:
     image: postgres:latest
     restart: always
     environment:
