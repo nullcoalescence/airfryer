@@ -1,5 +1,6 @@
 ﻿using airfryer.Db;
 using airfryer.Models;
+using airfryer.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,25 +9,35 @@ namespace airfryer.Controllers;
 public class RecipeController : Controller
 {
     private readonly ILogger<RecipeController> _logger;
-    private readonly AirfryerContext _dbContext;
-
-    public RecipeController(ILogger<RecipeController> logger, AirfryerContext dbContext)
+    private readonly RecipeService _recipeService;
+    public RecipeController(ILogger<RecipeController> logger, RecipeService recipeService)
     {
         _logger = logger;
-        _dbContext = dbContext;
+        _recipeService = recipeService;
     }
 
     public IActionResult Index()
     {
-        var connectionString = _dbContext.Database.GetDbConnection().ConnectionString;
-        
-        var recipes = _dbContext.Recipes.AsQueryable();
+        var entities = _recipeService.GetAll();
         var recipeViewModels = new List<RecipeViewModel>();
-        foreach (var recipe in recipes)
+        foreach (var entity in entities)
         {
-            recipeViewModels.Add(RecipeMapper.ToViewModel(recipe));
+            recipeViewModels.Add(RecipeMapper.ToViewModel(entity));
         }
         
         return View(recipeViewModels);
+    }
+
+    public IActionResult Add()
+    {
+        return View();
+    }
+
+    public async Task<IActionResult> Recipe(int id)
+    {
+        var entity = await _recipeService.GetByIdAsnyc(id);
+        var viewModel = RecipeMapper.ToViewModel(entity);
+        
+        return View(viewModel);
     }
 }

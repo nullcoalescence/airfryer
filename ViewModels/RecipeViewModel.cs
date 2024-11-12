@@ -12,6 +12,6 @@ public class RecipeViewModel
 [Mapper]
 public static partial class RecipeMapper
 {
-    public static partial RecipeViewModel ToViewModel(Recipe entity);
+    public static partial RecipeViewModel ToViewModel(Recipe? entity);
     public static partial Recipe ToEntity(RecipeViewModel viewModel);
 }

@@ -15,4 +15,15 @@
         <p>No recipes. Create one.</p>
     }
     
+    <ul>
+        @foreach (var recipe in Model)
+        {
+            <li>
+                <a asp-controller="Recipe" asp-action="Recipe" asp-route-id="@recipe.Id">
+                    @recipe.Name
+                </a>
+            </li>
+        }
+    </ul>
+    
 </div>

@@ -6,7 +6,9 @@
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
-  postgres-db:
+    networks:
+      - docker-network
+  postgres:
     image: postgres:latest
     restart: always
     environment:
@@ -18,12 +20,12 @@
     ports:
       - "5432:5432"
     networks:
-      - postgres-network
+      - docker-network
 
 volumes:
   pgdata:
     driver: local
     
 networks:
-  postgres-network:
+  docker-network:
     driver: bridge
