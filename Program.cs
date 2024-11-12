@@ -1,4 +1,6 @@
 using airfryer.Db;
+using airfryer.Models;
+using airfryer.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace airfryer;
@@ -14,6 +16,8 @@ public class Program
 
         builder.Services.AddDbContext<AirfryerContext>(opt =>
             opt.UseNpgsql(builder.Configuration.GetConnectionString("AirfryerContext")));
+        
+        builder.Services.AddScoped<RecipeService>();
 
         var app = builder.Build();
 
